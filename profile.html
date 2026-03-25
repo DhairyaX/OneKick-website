@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Code Meck</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login-styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- 3D Background -->
+    <div id="three-canvas-container"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <span class="logo-text">Code Meck</span>
+                    <div class="logo-glow"></div>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html#home" class="nav-link" data-text="Home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link" data-text="About">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#services" class="nav-link" data-text="Services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link" data-text="Contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link" data-text="Dashboard">Dashboard</a>
+                </li>
+            </ul>
+            <div class="user-nav" id="user-nav">
+                <div class="user-profile-dropdown">
+                    <button class="user-profile-btn" id="user-profile-btn">
+                        <img id="nav-user-avatar" src="" alt="User Avatar" class="user-avatar-small">
+                        <span id="nav-user-name">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown-menu" id="user-dropdown-menu">
+                        <a href="dashboard.html" class="dropdown-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="profile.html" class="dropdown-item active">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Saved Articles</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item logout-item" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <section class="dashboard-section profile-page">
+        <div class="dashboard-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-header-content">
+                    <h1 class="profile-title">
+                        <i class="fas fa-user"></i>
+                        <span class="gradient-text">My Profile</span>
+                    </h1>
+                    <p class="profile-subtitle">Manage your personal information and preferences</p>
+                </div>
+                <button class="edit-profile-btn" id="edit-profile-btn">
+                    <i class="fas fa-edit"></i>
+                    Edit Profile
+                </button>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="profile-container">
+                <!-- Profile Card -->
+                <div class="dashboard-card profile-card">
+                    <!-- Profile View Mode -->
+                    <div class="card-content" id="profile-view-mode">
+                        <div class="profile-summary">
+                            <div class="profile-avatar-section">
+                                <div class="profile-avatar-large">
+                                    <img id="dashboard-user-avatar" src="" alt="User Avatar">
+                                    <div class="avatar-overlay">
+                                        <i class="fas fa-camera"></i>
+                                    </div>
+                                </div>
+                                <button class="change-avatar-btn" id="change-avatar-btn">
+                                    <i class="fas fa-camera"></i>
+                                    Change Photo
+                                </button>
+                            </div>
+                            
+                            <div class="profile-details">
+                                <!-- Personal Information -->
+                                <div class="profile-section">
+                                    <h4 class="section-title">Personal Information</h4>
+                                    <div class="profile-grid">
+                                        <div class="profile-field">
+                                            <label>Full Name</label>
+                                            <span id="display-name">Student Name</span>
+                                        </div>
+                                        <div class="profile-field">
+                                            <label>Username</label>
+                                            <span id="display-username">@student123</span>
+                                        </div>
+                                        <div class="profile-field">
+                                            <label>Email</label>
+                                            <span id="display-email">student@example.com</span>
+                                        </div>
+                                        <div class="profile-field">
+                                            <label>Phone Number</label>
+                                            <span id="display-phone">+1 234 567 8900</span>
+                                        </div>
+                                        <div class="profile-field">
+                                            <label>Age</label>
+                                            <span id="display-age">22</span>
+                                        </div>
+                                        <div class="profile-field">
+                                            <label>Gender</label>
+                                            <span id="display-gender">Prefer not to say</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bio Section -->
+                                <div class="profile-section">
+                                    <h4 class="section-title">Bio</h4>
+                                    <div class="profile-bio">
+                                        <p id="display-bio">Passionate about technology and always eager to learn new things. Currently exploring web development and machine learning.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Educational Information -->
+                                <div class="profile-section">
+                                    <h4 class="section-title">Educational Information</h4>
+                                    <div class="profile-grid">
+                                        <div class="profile-field">
+                                            <label>College/University</label>
+                                            <span id="display-college">University of Technology</span>
+                                        </div>
+                                        <div class="profile-field">
+                                            <label>Course/Degree</label>
+                                            <span id="display-course">Computer Science Engineering</span>
+                                        </div>
+                                        <div class="profile-field">
+                                            <label>Year of Study</label>
+                                            <span id="display-year">3rd Year</span>
+                                        </div>
+                                        <div class="profile-field">
+                                            <label>Graduation Year</label>
+                                            <span id="display-graduation">2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Interests & Skills -->
+                                <div class="profile-section">
+                                    <h4 class="section-title">Interests & Skills</h4>
+                                    <div class="profile-badges">
+                                        <span class="badge skill-badge">JavaScript</span>
+                                        <span class="badge skill-badge">React</span>
+                                        <span class="badge skill-badge">Python</span>
+                                        <span class="badge skill-badge">Web Development</span>
+                                        <span class="badge skill-badge">Machine Learning</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Admin Mode Toggle (only for admin users) -->
+                            <div class="admin-mode-section" id="admin-mode-section" style="display: none;">
+                                <div class="admin-mode-header">
+                                    <div class="admin-mode-info">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <div>
+                                            <h4>Administrator Mode</h4>
+                                            <p>Switch to admin mode to access suggestions and management features</p>
+                                        </div>
+                                    </div>
+                                    <div class="admin-mode-toggle">
+                                        <label class="admin-toggle-switch">
+                                            <input type="checkbox" id="admin-mode-toggle">
+                                            <span class="admin-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="admin-mode-indicator" id="admin-mode-indicator" style="display: none;">
+                                    <i class="fas fa-crown"></i>
+                                    <span>Administrator Mode Active</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-actions">
+                                <button class="admin-panel-btn" id="admin-panel-btn" style="display: none;">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Admin Panel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Edit Mode -->
+                    <div class="card-content" id="profile-edit-mode" style="display: none;">
+                        <form id="profile-edit-form" class="profile-edit-form">
+                            <!-- Avatar Upload -->
+                            <div class="edit-avatar-section">
+                                <div class="profile-avatar-large">
+                                    <img id="edit-user-avatar" src="" alt="User Avatar">
+                                    <div class="avatar-overlay">
+                                        <i class="fas fa-camera"></i>
+                                    </div>
+                                </div>
+                                <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+                                <button type="button" class="change-avatar-btn" onclick="document.getElementById('avatar-upload').click()">
+                                    <i class="fas fa-camera"></i>
+                                    Change Photo
+                                </button>
+                            </div>
+
+                            <!-- Personal Information -->
+                            <div class="edit-section">
+                                <h4 class="section-title">Personal Information</h4>
+                                <div class="edit-grid">
+                                    <div class="form-group">
+                                        <label for="edit-name">Full Name</label>
+                                        <input type="text" id="edit-name" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-username">Username</label>
+                                        <input type="text" id="edit-username" name="username" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-email">Email</label>
+                                        <input type="email" id="edit-email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-phone">Phone Number</label>
+                                        <input type="tel" id="edit-phone" name="phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-age">Age</label>
+                                        <input type="number" id="edit-age" name="age" min="13" max="100">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-gender">Gender</label>
+                                        <select id="edit-gender" name="gender">
+                                            <option value="">Prefer not to say</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bio -->
+                            <div class="edit-section">
+                                <h4 class="section-title">Bio</h4>
+                                <div class="form-group">
+                                    <textarea id="edit-bio" name="bio" placeholder="Tell us about yourself..." rows="4"></textarea>
+                                    <div class="char-count">
+                                        <span id="bio-char-count">0</span>/500 characters
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Educational Information -->
+                            <div class="edit-section">
+                                <h4 class="section-title">Educational Information</h4>
+                                <div class="edit-grid">
+                                    <div class="form-group">
+                                        <label for="edit-college">College/University</label>
+                                        <input type="text" id="edit-college" name="college">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-course">Course/Degree</label>
+                                        <input type="text" id="edit-course" name="course">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-year">Year of Study</label>
+                                        <select id="edit-year" name="year">
+                                            <option value="">Select Year</option>
+                                            <option value="1st Year">1st Year</option>
+                                            <option value="2nd Year">2nd Year</option>
+                                            <option value="3rd Year">3rd Year</option>
+                                            <option value="4th Year">4th Year</option>
+                                            <option value="Graduate">Graduate</option>
+                                            <option value="Postgraduate">Postgraduate</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-graduation">Expected Graduation</label>
+                                        <input type="number" id="edit-graduation" name="graduation" min="2024" max="2035">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Skills & Interests -->
+                            <div class="edit-section">
+                                <h4 class="section-title">Skills & Interests</h4>
+                                <div class="form-group">
+                                    <label for="edit-skills">Skills (comma-separated)</label>
+                                    <input type="text" id="edit-skills" name="skills" placeholder="JavaScript, React, Python, etc.">
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="form-actions">
+                                <button type="button" class="cancel-btn" id="cancel-edit-btn">
+                                    <i class="fas fa-times"></i>
+                                    Cancel
+                                </button>
+                                <button type="submit" class="save-btn">
+                                    <i class="fas fa-save"></i>
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="three-background.js"></script>
+    <script src="profile-persistence.js"></script>
+    <script src="auth.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>
