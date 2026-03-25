@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Code Meck</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <!-- 3D Background -->
+    <div id="three-canvas-container"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <span class="logo-text">Code Meck</span>
+                    <div class="logo-glow"></div>
+                </a>
+            </div>
+            <!-- Center - Navigation Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html#home" class="nav-link" data-text="Home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link" data-text="About">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#services" class="nav-link" data-text="Services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link" data-text="Contact">Contact</a>
+                </li>
+            </ul>
+            
+            <!-- Right side - Back to Home -->
+            <div class="auth-nav">
+                <a href="index.html" class="auth-btn login-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+            </div>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1 class="login-title">
+                        <span class="gradient-text">Welcome to Code Meck</span>
+                    </h1>
+                    <p class="login-subtitle">Join the community and start your tech learning journey</p>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Sign In</span>
+                    </button>
+                    <button class="tab-btn" data-tab="signup">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Sign Up</span>
+                    </button>
+                </div>
+
+                <!-- Login Form -->
+                <div class="auth-form active" id="login-form">
+                    <div class="form-header">
+                        <h2>Sign In to Your Account</h2>
+                        <p>Access your personalized learning dashboard</p>
+                    </div>
+
+                    <!-- Google Sign In Button -->
+                    <div class="google-signin-container">
+                        <div id="google-signin-login"></div>
+                    </div>
+
+                    <div class="divider">
+                        <span>Or continue with email</span>
+                    </div>
+
+                    <!-- Traditional Login Form -->
+                    <form class="login-traditional-form" id="traditional-login">
+                        <div class="form-group">
+                            <label for="login-email">Email Address</label>
+                            <div class="input-container">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" id="login-email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <div class="input-container">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" id="login-password" name="password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="auth-btn">
+                            <span>Sign In</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Signup Form -->
+                <div class="auth-form" id="signup-form">
+                    <div class="form-header">
+                        <h2>Create Your Account</h2>
+                        <p>Join thousands of students learning tech</p>
+                    </div>
+
+                    <!-- Google Sign Up Button -->
+                    <div class="google-signin-container">
+                        <div id="google-signin-signup"></div>
+                    </div>
+
+                    <div class="divider">
+                        <span>Or create account with email</span>
+                    </div>
+
+                    <!-- Traditional Signup Form -->
+                    <form class="login-traditional-form" id="traditional-signup">
+                        <div class="form-group">
+                            <label for="signup-name">Full Name</label>
+                            <div class="input-container">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" id="signup-name" name="name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-email">Email Address</label>
+                            <div class="input-container">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" id="signup-email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <div class="input-container">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" id="signup-password" name="password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('signup-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <div class="input-container">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" id="confirm-password" name="confirm-password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('confirm-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="agree-terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="auth-btn">
+                            <span>Create Account</span>
+                            <i class="fas fa-user-plus"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Social Login Options -->
+                <div class="social-login">
+                    <p class="social-text">Connect with your favorite platforms</p>
+                    <div class="social-buttons">
+                        <button class="social-btn github-btn">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </button>
+                        <button class="social-btn linkedin-btn">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Profile Modal (shown after login) -->
+    <div class="profile-modal" id="profile-modal">
+        <div class="modal-overlay" onclick="closeProfileModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>User Profile</h3>
+                <button class="close-btn" onclick="closeProfileModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <img id="user-avatar" src="" alt="User Avatar">
+                    </div>
+                    <div class="profile-details">
+                        <h4 id="user-name">User Name</h4>
+                        <p id="user-email">user@example.com</p>
+                        <div class="user-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Blogs Read</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">5</span>
+                                <span class="stat-label">Courses</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">148</span>
+                                <span class="stat-label">Points</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="profile-btn">
+                        <i class="fas fa-user-edit"></i>
+                        <span>Edit Profile</span>
+                    </button>
+                    <button class="profile-btn">
+                        <i class="fas fa-bookmark"></i>
+                        <span>Saved Articles</span>
+                    </button>
+                    <button class="profile-btn">
+                        <i class="fas fa-history"></i>
+                        <span>Learning History</span>
+                    </button>
+                    <button class="profile-btn logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="three-scene.js"></script>
+    <script src="script.js"></script>
+    <script src="profile-persistence.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>
